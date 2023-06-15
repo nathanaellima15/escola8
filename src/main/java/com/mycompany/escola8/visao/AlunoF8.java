@@ -65,6 +65,8 @@ public class AlunoF8 extends javax.swing.JFrame {
         txtIdade = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         txtMatricula = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        txtAno = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         Result = new javax.swing.JTextArea();
@@ -102,14 +104,44 @@ public class AlunoF8 extends javax.swing.JFrame {
         jLabel2.setText("Name");
 
         txtName.setText(" ");
+        txtName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNameKeyReleased(evt);
+            }
+        });
 
         jLabel3.setText("Sexo");
 
         txtSexo.setText(" ");
+        txtSexo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSexoKeyReleased(evt);
+            }
+        });
 
         jLabel4.setText("idade");
 
+        txtIdade.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtIdadeKeyReleased(evt);
+            }
+        });
+
         jLabel5.setText("Matricula");
+
+        txtMatricula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtMatriculaKeyReleased(evt);
+            }
+        });
+
+        jLabel6.setText("Ano de Ingresso");
+
+        txtAno.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtAnoKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -148,10 +180,16 @@ public class AlunoF8 extends javax.swing.JFrame {
                                         .addComponent(jLabel2)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(txtName)))
-                                .addGap(25, 25, 25)
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel5)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel6)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtAno, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addGap(0, 3, Short.MAX_VALUE))
                     .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jProgressBar2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -184,7 +222,9 @@ public class AlunoF8 extends javax.swing.JFrame {
                     .addComponent(txtIdade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
                     .addComponent(txtSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel6)
+                    .addComponent(txtAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(15, 15, 15))
         );
 
@@ -238,6 +278,7 @@ public class AlunoF8 extends javax.swing.JFrame {
 
     private void btNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNewActionPerformed
         this.resetCamps(true);
+        txtName.requestFocus();
         // TODO add your handling code here:
     }//GEN-LAST:event_btNewActionPerformed
 
@@ -257,11 +298,48 @@ public class AlunoF8 extends javax.swing.JFrame {
         int aux = Integer.parseInt(txtIdade.getText());
         a.setIdade(aux);
         a.setMatricula(txtMatricula.getText());
+        int aux1 = Integer.parseInt(txtAno.getText());
+        a.setAno(aux1);
     
         Result.setText(a.toString()); //mostra o resultado
         this.resetCamps(false);
         // TODO add your handling code here:
     }//GEN-LAST:event_btSaveActionPerformed
+
+    private void txtNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNameKeyReleased
+        if(evt.getKeyChar() == java.awt.event.KeyEvent.VK_ENTER){
+            txtSexo.requestFocus();
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNameKeyReleased
+
+    private void txtSexoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSexoKeyReleased
+        if(evt.getKeyChar() == java.awt.event.KeyEvent.VK_ENTER){
+            txtIdade.requestFocus();
+        }
+// TODO add your handling code here:
+    }//GEN-LAST:event_txtSexoKeyReleased
+
+    private void txtIdadeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdadeKeyReleased
+        if(evt.getKeyChar() == java.awt.event.KeyEvent.VK_ENTER){
+            txtMatricula.requestFocus();
+        }
+// TODO add your handling code here:
+    }//GEN-LAST:event_txtIdadeKeyReleased
+
+    private void txtMatriculaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMatriculaKeyReleased
+        if(evt.getKeyChar() == java.awt.event.KeyEvent.VK_ENTER){
+            txtAno.requestFocus();
+        }
+// TODO add your handling code here:
+    }//GEN-LAST:event_txtMatriculaKeyReleased
+
+    private void txtAnoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAnoKeyReleased
+        if(evt.getKeyChar() == java.awt.event.KeyEvent.VK_ENTER){
+            btSave.requestFocus();
+        }
+// TODO add your handling code here:
+    }//GEN-LAST:event_txtAnoKeyReleased
 
     /**
      * @param args the command line arguments
@@ -311,11 +389,13 @@ public class AlunoF8 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JProgressBar jProgressBar2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField txtAno;
     private javax.swing.JTextField txtIdade;
     private javax.swing.JTextField txtMatricula;
     private javax.swing.JTextField txtName;

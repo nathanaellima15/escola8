@@ -4,7 +4,6 @@
  */
 package com.mycompany.escola8.entits;
 
-import java.util.Date;
 
 /**
  *
@@ -15,9 +14,9 @@ public class Aluno8 {
   private char sexo;
   private int idade;
   private String matricula;
-  private Date ano;
+  private int ano;
 
-    public Aluno8(String nome, char sexo, int idade, String matricula, Date ano) {
+    public Aluno8(String nome, char sexo, int idade, String matricula, int ano) {
         this.nome = nome;
         this.sexo = sexo;
         this.idade = idade;
@@ -29,10 +28,10 @@ public class Aluno8 {
       this.sexo = ' ';
       this.idade = 0;
       this.matricula = "";
-      this.ano = new Date();
+      this.ano = 0;
     }  
     public String toString(){
-        return("\nNome: "+ this.nome + "\nSexo:" + this.sexo + "\nIdade: " + this.idade + "\nMatricula: "+ this.matricula + "\n__________________________\n");
+        return("\nNome: "+ this.nome + "\nSexo:" + this.sexo + "\nIdade: " + this.idade + "\nMatricula: "+ this.matricula + "\nIngresso: "+ this.ano +"\n__________________________\n");
     }
 
     public String getNome() {
@@ -59,10 +58,10 @@ public class Aluno8 {
     public void setMatricula(String matricula) {
         this.matricula = matricula;
     }
-    public Date getAno() {
+    public int getAno() {
         return ano;
     }
-    public void setAno(Date ano) {
+    public void setAno(int ano) {
         this.ano = ano;
     }
   
