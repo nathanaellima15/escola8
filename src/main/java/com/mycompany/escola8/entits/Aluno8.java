@@ -24,6 +24,16 @@ public class Aluno8 {
         this.matricula = matricula;
         this.ano = ano;
     }
+    public Aluno8(){
+      this.nome = "";
+      this.sexo = ' ';
+      this.idade = 0;
+      this.matricula = "";
+      this.ano = new Date();
+    }  
+    public String toString(){
+        return("\nNome: "+ this.nome + "\nSexo:" + this.sexo + "\nIdade: " + this.idade + "\nMatricula: "+ this.matricula + "\n__________________________\n");
+    }
 
     public String getNome() {
         return nome;
