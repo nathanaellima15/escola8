@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.escola8.visao;
-
+import javax.swing.JOptionPane;
 import com.mycompany.escola8.entits.Aluno8;
 
 /**
@@ -293,13 +293,55 @@ public class AlunoF8 extends javax.swing.JFrame {
 
     private void btSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSaveActionPerformed
         Aluno8 a = new Aluno8();
-        a.setNome(txtName.getText());
-        a.setSexo(txtSexo.getText().charAt(0));
-        int aux = Integer.parseInt(txtIdade.getText());
-        a.setIdade(aux);
+        String nome = txtName.getText();
+        if (nome.isEmpty()) {
+          JOptionPane.showMessageDialog(null, "Campo 'Nome' não pode estar vazio.");
+          return; // Retorna sem prosseguir, aguardando que o usuário corrija o campo
+        }
+        a.setNome(nome);
+        // Validação do campo "sexo"
+        String sexo = txtSexo.getText();
+        if (sexo.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Campo 'Sexo' não pode estar vazio.");
+            return;
+        }
+        char sexoChar = sexo.charAt(0); // Obtém o primeiro caractere do campo
+        a.setSexo(sexoChar);
+        // Validação do campo "idade"
+        String idadeStr = txtIdade.getText();
+        if (idadeStr.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Campo 'Idade' não pode estar vazio.");
+            return;
+        }
+        try {
+        int idade = Integer.parseInt(idadeStr);
+        if (idade < 0) {
+              JOptionPane.showMessageDialog(null, "Campo 'Idade' deve ser um valor positivo.");
+        return;
+        }
+        a.setIdade(idade);
+        } catch (NumberFormatException e) {
+              JOptionPane.showMessageDialog(null, "Campo 'Idade' deve ser um número inteiro válido.");
+              return;
+        }
         a.setMatricula(txtMatricula.getText());
-        int aux1 = Integer.parseInt(txtAno.getText());
-        a.setAno(aux1);
+        //validação Ano de ingresso
+        String anoStr = txtAno.getText();
+        if (anoStr.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Campo 'Ano' não pode estar vazio.");
+            return;
+        }
+        if (anoStr.length() > 4) {
+            JOptionPane.showMessageDialog(null, "Ano Inexistente.");
+            return;
+        }
+        try {
+            int ano = Integer.parseInt(anoStr);
+            a.setAno(ano);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Campo 'Ano' deve ser um número inteiro válido.");
+            return;
+        }
     
         Result.setText(a.toString()); //mostra o resultado
         this.resetCamps(false);
