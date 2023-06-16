@@ -4,6 +4,7 @@
  */
 package com.mycompany.escola8.visao;
 import javax.swing.JOptionPane;
+import java.util.ArrayList;
 import com.mycompany.escola8.entits.Aluno8;
 
 /**
@@ -16,6 +17,7 @@ public class AlunoF8 extends javax.swing.JFrame {
         txtSexo.setEnabled(flag);
         txtIdade.setEnabled(flag);
         txtMatricula.setEnabled(flag); 
+        txtAno.setEnabled(flag);
         
         if (!flag){
         
@@ -23,6 +25,7 @@ public class AlunoF8 extends javax.swing.JFrame {
             txtSexo.setText("");
             txtIdade.setText("");  
             txtMatricula.setText("");
+            txtAno.setText("");
         }
     }
     
@@ -31,8 +34,10 @@ public class AlunoF8 extends javax.swing.JFrame {
     /**
      * Creates new form alunoF8
      */
+    private ArrayList<Aluno8> lista;
     public AlunoF8() {
         initComponents();
+        lista = new ArrayList<>();
         this.resetCamps(false);
         
         
@@ -293,9 +298,11 @@ public class AlunoF8 extends javax.swing.JFrame {
 
     private void btSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSaveActionPerformed
         Aluno8 a = new Aluno8();
+        int b = 0;
         String nome = txtName.getText();
         if (nome.isEmpty()) {
           JOptionPane.showMessageDialog(null, "Campo 'Nome' não pode estar vazio.");
+          b = 1;
           return; // Retorna sem prosseguir, aguardando que o usuário corrija o campo
         }
         a.setNome(nome);
@@ -303,6 +310,7 @@ public class AlunoF8 extends javax.swing.JFrame {
         String sexo = txtSexo.getText();
         if (sexo.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Campo 'Sexo' não pode estar vazio.");
+            b = 1;
             return;
         }
         char sexoChar = sexo.charAt(0); // Obtém o primeiro caractere do campo
@@ -311,17 +319,20 @@ public class AlunoF8 extends javax.swing.JFrame {
         String idadeStr = txtIdade.getText();
         if (idadeStr.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Campo 'Idade' não pode estar vazio.");
+            b = 1;
             return;
         }
         try {
         int idade = Integer.parseInt(idadeStr);
         if (idade < 0) {
               JOptionPane.showMessageDialog(null, "Campo 'Idade' deve ser um valor positivo.");
-        return;
+              b = 1;
+              return;
         }
         a.setIdade(idade);
         } catch (NumberFormatException e) {
               JOptionPane.showMessageDialog(null, "Campo 'Idade' deve ser um número inteiro válido.");
+              b = 1;
               return;
         }
         a.setMatricula(txtMatricula.getText());
@@ -329,10 +340,12 @@ public class AlunoF8 extends javax.swing.JFrame {
         String anoStr = txtAno.getText();
         if (anoStr.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Campo 'Ano' não pode estar vazio.");
+            b = 1;
             return;
         }
-        if (anoStr.length() > 4) {
+        if (anoStr.length() != 4) {
             JOptionPane.showMessageDialog(null, "Ano Inexistente.");
+            b = 1;
             return;
         }
         try {
@@ -340,10 +353,14 @@ public class AlunoF8 extends javax.swing.JFrame {
             a.setAno(ano);
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Campo 'Ano' deve ser um número inteiro válido.");
+            b = 1;
             return;
         }
     
-        Result.setText(a.toString()); //mostra o resultado
+        if (b==0){ 
+            this.lista.add(a);
+        }
+        Result.setText(this.mostrarlista()); //mostra o resultado
         this.resetCamps(false);
         // TODO add your handling code here:
     }//GEN-LAST:event_btSaveActionPerformed
@@ -443,4 +460,14 @@ public class AlunoF8 extends javax.swing.JFrame {
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtSexo;
     // End of variables declaration//GEN-END:variables
+
+    private String mostrarlista() {
+        String listaCompleta = "";
+
+        for (int i=0; i <= lista.size()-1; i++){
+            Aluno8 aux = lista.get(i);
+            listaCompleta = listaCompleta + aux.toString();
+        }
+        return listaCompleta;
+    }
 }

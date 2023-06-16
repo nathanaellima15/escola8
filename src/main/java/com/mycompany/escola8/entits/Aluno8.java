@@ -9,6 +9,7 @@ package com.mycompany.escola8.entits;
  *
  * @author aluno
  */
+
 public class Aluno8 {
   private String nome;
   private char sexo;
