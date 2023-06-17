@@ -35,9 +35,11 @@ public class AlunoF8 extends javax.swing.JFrame {
      * Creates new form alunoF8
      */
     private ArrayList<Aluno8> lista;
+    private int indiceDeEdicao;
     public AlunoF8() {
         initComponents();
         lista = new ArrayList<>();
+        indiceDeEdicao = -1;
         this.resetCamps(false);
         
         
@@ -89,6 +91,11 @@ public class AlunoF8 extends javax.swing.JFrame {
         jLabel1.setText("Cadastrar Aluno");
 
         btEdit.setText("Edit");
+        btEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btEditActionPerformed(evt);
+            }
+        });
 
         btCancel.setText("Cancel");
         btCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -400,6 +407,14 @@ public class AlunoF8 extends javax.swing.JFrame {
 // TODO add your handling code here:
     }//GEN-LAST:event_txtAnoKeyReleased
 
+    private void btEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditActionPerformed
+        String matriculaInformada = JOptionPane.showInputDialog("Informe o Aluno a ser editado", "<informe a matricula>");
+        
+        indiceDeEdicao = this.pesquisarAluno(matriculaInformada);
+        
+// TODO add your handling code here:
+    }//GEN-LAST:event_btEditActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -469,5 +484,14 @@ public class AlunoF8 extends javax.swing.JFrame {
             listaCompleta = listaCompleta + aux.toString();
         }
         return listaCompleta;
+    }
+
+    private int pesquisarAluno(String matriculaInformada) {
+        for (int i=0; i<= this.lista.size()-1;i++){
+            if (this.lista.get(i).getMatricula().equals(matriculaInformada)){
+                return i;
+            }
+        }
+        return -1;   
     }
 }
