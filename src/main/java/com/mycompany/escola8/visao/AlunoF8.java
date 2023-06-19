@@ -35,6 +35,7 @@ public class AlunoF8 extends javax.swing.JFrame {
      * Creates new form alunoF8
      */
     private ArrayList<Aluno8> lista;
+    private int NewOrEdit;
     private int indiceDeEdicao;
     public AlunoF8() {
         initComponents();
@@ -105,6 +106,11 @@ public class AlunoF8 extends javax.swing.JFrame {
         });
 
         btClean.setText("Clean");
+        btClean.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCleanActionPerformed(evt);
+            }
+        });
 
         btSave.setText("Save");
         btSave.addActionListener(new java.awt.event.ActionListener() {
@@ -290,6 +296,7 @@ public class AlunoF8 extends javax.swing.JFrame {
 
     private void btNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNewActionPerformed
         this.resetCamps(true);
+        this.NewOrEdit = 0;
         txtName.requestFocus();
         // TODO add your handling code here:
     }//GEN-LAST:event_btNewActionPerformed
@@ -304,7 +311,8 @@ public class AlunoF8 extends javax.swing.JFrame {
     }//GEN-LAST:event_ResultComponentShown
 
     private void btSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSaveActionPerformed
-        Aluno8 a = new Aluno8();
+        Aluno8 a = this.copiarCamposParaLista();
+        
         int b = 0;
         String nome = txtName.getText();
         if (nome.isEmpty()) {
@@ -363,10 +371,20 @@ public class AlunoF8 extends javax.swing.JFrame {
             b = 1;
             return;
         }
-    
-        if (b==0){ 
-            this.lista.add(a);
-        }
+        
+        if (NewOrEdit==0){
+            if (b==0){ 
+                this.lista.add(a);
+            }
+        }else if(NewOrEdit ==1){
+            Aluno8 c = this.lista.get(indiceDeEdicao);
+            c.setNome(a.getNome());
+            c.setSexo(a.getSexo());
+            c.setIdade(a.getIdade());
+            c.setMatricula(a.getMatricula());
+            c.setAno(a.getAno());
+            
+        }    
         Result.setText(this.mostrarlista()); //mostra o resultado
         this.resetCamps(false);
         // TODO add your handling code here:
@@ -408,12 +426,28 @@ public class AlunoF8 extends javax.swing.JFrame {
     }//GEN-LAST:event_txtAnoKeyReleased
 
     private void btEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditActionPerformed
+        this.NewOrEdit = 1;
+        
         String matriculaInformada = JOptionPane.showInputDialog("Informe o Aluno a ser editado", "<informe a matricula>");
         
         indiceDeEdicao = this.pesquisarAluno(matriculaInformada);
         
+        this.copiarDaListaParaCampos(indiceDeEdicao);
+        this.resetCamps(true);
 // TODO add your handling code here:
     }//GEN-LAST:event_btEditActionPerformed
+
+    private void btCleanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCleanActionPerformed
+        String matriculaInformada = JOptionPane.showInputDialog("Informe o aluno a ser excluido", "<informe a matrícula>");
+        
+        int index = this.pesquisarAluno(matriculaInformada);
+        this.lista.remove(index);
+        
+        Result.setText(this.mostrarlista());
+        this.resetCamps(false);
+
+// TODO add your handling code here:
+    }//GEN-LAST:event_btCleanActionPerformed
 
     /**
      * @param args the command line arguments
@@ -486,6 +520,33 @@ public class AlunoF8 extends javax.swing.JFrame {
         return listaCompleta;
     }
 
+    public void copiarDaListaParaCampos(int index){
+        Aluno8 a = this.lista.get(index);
+        txtName.setText(a.getNome());
+        txtSexo.setText(a.getSexo()+"");
+        txtIdade.setText(a.getIdade()+"");
+        txtMatricula.setText(a.getMatricula());
+        txtAno.setText(a.getAno() + "");
+    }
+    
+    public Aluno8 copiarCamposParaLista() {
+        Aluno8 a = new Aluno8();
+        a.setNome(txtName.getText());
+        a.setSexo(txtSexo.getText().charAt(0));
+
+        //Testa se o campo idade foi preenchido
+        String idadeLida = txtIdade.getText();
+        if (!idadeLida.isEmpty()) {
+            int aux = Integer.parseInt(idadeLida);
+            a.setIdade(aux);
+        } else {
+            JOptionPane.showMessageDialog(this, "Campo Idade obrigatório. ");
+        }
+
+        a.setMatricula(txtMatricula.getText());
+        return a;
+    }
+    
     private int pesquisarAluno(String matriculaInformada) {
         for (int i=0; i<= this.lista.size()-1;i++){
             if (this.lista.get(i).getMatricula().equals(matriculaInformada)){
