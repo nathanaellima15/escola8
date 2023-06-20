@@ -91,18 +91,45 @@ public class ProfessorF8 extends javax.swing.JFrame {
                 btSaveActionPerformed(evt);
             }
         });
+        btSave.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btSaveKeyPressed(evt);
+            }
+        });
 
         jLabel2.setText("Name");
 
         txtName.setText(" ");
+        txtName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNameKeyReleased(evt);
+            }
+        });
 
         jLabel3.setText("Sexo");
 
         txtSexo.setText(" ");
+        txtSexo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSexoKeyReleased(evt);
+            }
+        });
 
         jLabel4.setText("idade");
 
+        txtIdade.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtIdadeKeyReleased(evt);
+            }
+        });
+
         jLabel5.setText("CPF");
+
+        txtCpf.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCpfKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -226,6 +253,7 @@ public class ProfessorF8 extends javax.swing.JFrame {
 
     private void btNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNewActionPerformed
         this.resetCamps(true);
+        txtName.requestFocus();
         
     }//GEN-LAST:event_btNewActionPerformed
 
@@ -247,6 +275,34 @@ public class ProfessorF8 extends javax.swing.JFrame {
         this.resetCamps(false);
         
     }//GEN-LAST:event_btSaveActionPerformed
+
+    private void txtNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNameKeyReleased
+        if(evt.getKeyChar() == java.awt.event.KeyEvent.VK_ENTER){
+            txtSexo.requestFocus();
+        }
+    }//GEN-LAST:event_txtNameKeyReleased
+
+    private void txtSexoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSexoKeyReleased
+        if(evt.getKeyChar() == java.awt.event.KeyEvent.VK_ENTER){
+            txtIdade.requestFocus();
+        } 
+    }//GEN-LAST:event_txtSexoKeyReleased
+
+    private void txtIdadeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdadeKeyReleased
+        if(evt.getKeyChar() == java.awt.event.KeyEvent.VK_ENTER){
+            txtCpf.requestFocus();
+        }
+    }//GEN-LAST:event_txtIdadeKeyReleased
+
+    private void txtCpfKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCpfKeyReleased
+        if(evt.getKeyChar() == java.awt.event.KeyEvent.VK_ENTER){
+            btSave.requestFocus();
+        }
+    }//GEN-LAST:event_txtCpfKeyReleased
+
+    private void btSaveKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btSaveKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btSaveKeyPressed
 
     /**
      * @param args the command line arguments
