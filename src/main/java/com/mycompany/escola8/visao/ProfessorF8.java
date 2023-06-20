@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.escola8.visao;
-
+import com.mycompany.escola8.entits.Professor8;
 /**
  *
  * @author aluno
@@ -13,8 +13,23 @@ public class ProfessorF8 extends javax.swing.JFrame {
     /**
      * Creates new form alunoF8
      */
+    private void resetCamps(boolean flag){
+        txtName.setEnabled(flag);
+        txtSexo.setEnabled(flag);
+        txtIdade.setEnabled(flag);
+        txtCpf.setEnabled(flag); 
+        
+        if (!flag){
+
+            txtName.setText("");
+            txtSexo.setText("");
+            txtIdade.setText("");  
+            txtCpf.setText("");
+        }
+    }
     public ProfessorF8() {
         initComponents();
+        this.resetCamps(false);
     }
 
     /**
@@ -27,14 +42,14 @@ public class ProfessorF8 extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        btNew = new javax.swing.JButton();
         jProgressBar1 = new javax.swing.JProgressBar();
         jLabel1 = new javax.swing.JLabel();
         jProgressBar2 = new javax.swing.JProgressBar();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btEdit = new javax.swing.JButton();
+        btCancel = new javax.swing.JButton();
+        btClean = new javax.swing.JButton();
+        btSave = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -45,22 +60,37 @@ public class ProfessorF8 extends javax.swing.JFrame {
         txtCpf = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        Result = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("New");
+        btNew.setText("New");
+        btNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btNewActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
         jLabel1.setText("Cadastrar Professor");
 
-        jButton2.setText("Edit");
+        btEdit.setText("Edit");
 
-        jButton3.setText("Cancel");
+        btCancel.setText("Cancel");
+        btCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCancelActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("Clean");
+        btClean.setText("Clean");
 
-        jButton5.setText("Save");
+        btSave.setText("Save");
+        btSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSaveActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Name");
 
@@ -88,15 +118,15 @@ public class ProfessorF8 extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButton1)
+                                .addComponent(btNew)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton2)
+                                .addComponent(btEdit)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton3)
+                                .addComponent(btCancel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton4)
+                                .addComponent(btClean)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton5))
+                                .addComponent(btSave))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
@@ -131,11 +161,11 @@ public class ProfessorF8 extends javax.swing.JFrame {
                 .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
-                    .addComponent(jButton2)
-                    .addComponent(jButton4)
-                    .addComponent(jButton5)
-                    .addComponent(jButton1))
+                    .addComponent(btCancel)
+                    .addComponent(btEdit)
+                    .addComponent(btClean)
+                    .addComponent(btSave)
+                    .addComponent(btNew))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -151,9 +181,9 @@ public class ProfessorF8 extends javax.swing.JFrame {
                 .addGap(15, 15, 15))
         );
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        Result.setColumns(20);
+        Result.setRows(5);
+        jScrollPane1.setViewportView(Result);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -193,6 +223,30 @@ public class ProfessorF8 extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNewActionPerformed
+        this.resetCamps(true);
+        
+    }//GEN-LAST:event_btNewActionPerformed
+
+    private void btCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelActionPerformed
+        this.resetCamps(false);
+        
+    }//GEN-LAST:event_btCancelActionPerformed
+
+    private void btSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSaveActionPerformed
+        Professor8 a = new Professor8();
+        a.setNome(txtName.getText());
+        a.setSexo(txtSexo.getText().charAt(0));
+        int aux = Integer.parseInt(txtIdade.getText());
+        a.setIdade(aux);
+        int aux1 = Integer.parseInt(txtCpf.getText());
+        a.setCpf(aux1);
+
+        Result.setText(a.toString()); //mostra o resultado
+        this.resetCamps(false);
+        
+    }//GEN-LAST:event_btSaveActionPerformed
 
     /**
      * @param args the command line arguments
@@ -237,11 +291,12 @@ public class ProfessorF8 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JTextArea Result;
+    private javax.swing.JButton btCancel;
+    private javax.swing.JButton btClean;
+    private javax.swing.JButton btEdit;
+    private javax.swing.JButton btNew;
+    private javax.swing.JButton btSave;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -252,7 +307,6 @@ public class ProfessorF8 extends javax.swing.JFrame {
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JProgressBar jProgressBar2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField txtCpf;
     private javax.swing.JTextField txtIdade;
     private javax.swing.JTextField txtName;
