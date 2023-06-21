@@ -5,6 +5,7 @@
 package com.mycompany.escola8.visao;
 import com.mycompany.escola8.entits.Professor8;
 import javax.swing.JOptionPane;
+import java.util.ArrayList;
 
 /**
  *
@@ -29,8 +30,10 @@ public class ProfessorF8 extends javax.swing.JFrame {
             txtCpf.setText("");
         }
     }
+    private ArrayList<Professor8> lista;
     public ProfessorF8() {
         initComponents();
+        lista = new ArrayList<>();
         this.resetCamps(false);
     }
 
@@ -266,16 +269,20 @@ public class ProfessorF8 extends javax.swing.JFrame {
 
     private void btSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSaveActionPerformed
         Professor8 a = new Professor8();
+        int b = 0;
         String nome = txtName.getText();
         if (nome.isEmpty()) {
           JOptionPane.showMessageDialog(null, "Campo 'Nome' não pode estar vazio.");
+          b = 1;
           return; // Retorna sem prosseguir, aguardando que o usuário corrija o campo
+          
         }
         a.setNome(nome);
         // Validação do campo "sexo"
         String sexo = txtSexo.getText();
         if (sexo.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Campo 'Sexo' não pode estar vazio.");
+            b = 1;
             return;
         }
         char sexoChar = sexo.charAt(0); // Obtém o primeiro caractere do campo
@@ -284,47 +291,51 @@ public class ProfessorF8 extends javax.swing.JFrame {
         String idadeStr = txtIdade.getText();
         if (idadeStr.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Campo 'Idade' não pode estar vazio.");
+            b = 1;
             return;
         }
         try {
         int idade = Integer.parseInt(idadeStr);
         if (idade < 0) {
-              JOptionPane.showMessageDialog(null, "Campo 'Idade' deve ser um valor positivo.");
+            JOptionPane.showMessageDialog(null, "Campo 'Idade' deve ser um valor positivo.");
+            b = 1;
             return;
         }
         if (idade > 120) {
-              JOptionPane.showMessageDialog(null, "Campo 'Idade' deve ser de alguem vivo");
-        return;
+            JOptionPane.showMessageDialog(null, "Campo 'Idade' deve ser de alguem vivo");
+            b = 1;
+            return;
         }
         a.setIdade(idade);
         } catch (NumberFormatException e) {
               JOptionPane.showMessageDialog(null, "Campo 'Idade' deve ser um número inteiro válido.");
+              b = 1;
               return;
         }
         String cpfStr = txtCpf.getText();
         if (cpfStr.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Campo 'Cpf' não pode estar vazio.");
+            b = 1;
             return;
         }
         try {
              a.setCpf(cpfStr);
         } catch (IllegalArgumentException e) {
              JOptionPane.showMessageDialog(null, "Campo 'CPF' deve conter apenas números.");
+             b =1;
              return;
         }
         if (cpfStr.length() != 11) {
             JOptionPane.showMessageDialog(null, "Cpf Invalido.");
+            b = 1 ;
             return;
         }
+
         
-        /**try {
-            int cpf = Integer.parseInt(cpfStr);
-            a.setCpf(cpf);
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Campo 'Cpf' deve ser um número inteiro válido.");
-            return;
-        }*/
-        Result.setText(a.toString()); //mostra o resultado
+        if (b==0){ 
+            this.lista.add(a);
+        }
+        Result.setText(this.mostrarlista()); //mostra o resultado
         this.resetCamps(false); 
     }//GEN-LAST:event_btSaveActionPerformed
 
@@ -420,4 +431,13 @@ public class ProfessorF8 extends javax.swing.JFrame {
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtSexo;
     // End of variables declaration//GEN-END:variables
+    private String mostrarlista() {
+        String listaCompleta = "";
+        for (int i=0; i <= lista.size()-1; i++){
+            Professor8 aux = lista.get(i);
+            listaCompleta = listaCompleta + aux.toString();
+        }
+        return listaCompleta;
+    }
+
 }
