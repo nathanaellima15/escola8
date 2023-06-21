@@ -163,6 +163,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Edit"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btEditActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btCancel">
           <Properties>
@@ -176,6 +179,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Clean"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btCleanActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btSave">
           <Properties>

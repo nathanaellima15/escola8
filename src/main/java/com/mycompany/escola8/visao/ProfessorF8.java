@@ -31,9 +31,12 @@ public class ProfessorF8 extends javax.swing.JFrame {
         }
     }
     private ArrayList<Professor8> lista;
+    private int indiceDeEdicao;
+    private int NewOrEdit;
     public ProfessorF8() {
         initComponents();
         lista = new ArrayList<>();
+        indiceDeEdicao = -1;
         this.resetCamps(false);
     }
 
@@ -80,6 +83,11 @@ public class ProfessorF8 extends javax.swing.JFrame {
         jLabel1.setText("Cadastrar Professor");
 
         btEdit.setText("Edit");
+        btEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btEditActionPerformed(evt);
+            }
+        });
 
         btCancel.setText("Cancel");
         btCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -89,6 +97,11 @@ public class ProfessorF8 extends javax.swing.JFrame {
         });
 
         btClean.setText("Clean");
+        btClean.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCleanActionPerformed(evt);
+            }
+        });
 
         btSave.setText("Save");
         btSave.addActionListener(new java.awt.event.ActionListener() {
@@ -268,7 +281,7 @@ public class ProfessorF8 extends javax.swing.JFrame {
     }//GEN-LAST:event_btCancelActionPerformed
 
     private void btSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSaveActionPerformed
-        Professor8 a = new Professor8();
+        Professor8 a = this.copiarCamposParaLista();
         int b = 0;
         String nome = txtName.getText();
         if (nome.isEmpty()) {
@@ -330,11 +343,19 @@ public class ProfessorF8 extends javax.swing.JFrame {
             b = 1 ;
             return;
         }
-
         
-        if (b==0){ 
-            this.lista.add(a);
+        if (NewOrEdit==0){
+            if (b==0){ 
+                this.lista.add(a);
+            }
+        }else if(NewOrEdit ==1){
+            Professor8 c = this.lista.get(indiceDeEdicao);
+            c.setNome(a.getNome());
+            c.setSexo(a.getSexo());
+            c.setIdade(a.getIdade());
+            c.setCpf(a.getCpf());
         }
+        
         Result.setText(this.mostrarlista()); //mostra o resultado
         this.resetCamps(false); 
     }//GEN-LAST:event_btSaveActionPerformed
@@ -366,6 +387,28 @@ public class ProfessorF8 extends javax.swing.JFrame {
     private void btSaveKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btSaveKeyPressed
         // TODO add your handling code here:
     }//GEN-LAST:event_btSaveKeyPressed
+
+    private void btEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditActionPerformed
+        this.NewOrEdit = 1;
+        
+        String cpfInformado = JOptionPane.showInputDialog("Informe o Professor a ser editado", "<informe o cpf>");
+        indiceDeEdicao = this.pesquisarAluno(cpfInformado);
+        
+        this.copiarDaListaParaCampos(indiceDeEdicao);
+        this.resetCamps(true);
+// TODO add your handling code here:
+    }//GEN-LAST:event_btEditActionPerformed
+
+    private void btCleanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCleanActionPerformed
+        String cpfInformado = JOptionPane.showInputDialog("Informe o Professor a ser excluido", "<informe o cpf>");
+
+        int index = this.pesquisarAluno(cpfInformado);
+        this.lista.remove(index);
+
+        Result.setText(this.mostrarlista());
+        this.resetCamps(false);
+// TODO add your handling code here:
+    }//GEN-LAST:event_btCleanActionPerformed
 
     /**
      * @param args the command line arguments
@@ -439,5 +482,41 @@ public class ProfessorF8 extends javax.swing.JFrame {
         }
         return listaCompleta;
     }
+
+    private int pesquisarAluno(String cpfInformado) {
+        for (int i=0; i<= this.lista.size()-1;i++){
+            if (this.lista.get(i).getCpf().equals(cpfInformado)){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private void copiarDaListaParaCampos(int index) {
+        Professor8 a = this.lista.get(index);
+        txtName.setText(a.getNome());
+        txtSexo.setText(a.getSexo()+"");
+        txtIdade.setText(a.getIdade()+"");
+        txtCpf.setText(a.getCpf());
+    }
+
+    public Professor8 copiarCamposParaLista() {
+        Professor8 a = new Professor8();
+        a.setNome(txtName.getText());
+        a.setSexo(txtSexo.getText().charAt(0));
+
+        //Testa se o campo idade foi preenchido
+        String idadeLida = txtIdade.getText();
+        if (!idadeLida.isEmpty()) {
+            int aux = Integer.parseInt(idadeLida);
+            a.setIdade(aux);
+        } else {
+            JOptionPane.showMessageDialog(this, "Campo Idade obrigatório. ");
+        }
+
+        a.setCpf(txtCpf.getText());
+        return a;
+    }
+    
 
 }
