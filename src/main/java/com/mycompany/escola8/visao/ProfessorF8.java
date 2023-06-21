@@ -4,6 +4,8 @@
  */
 package com.mycompany.escola8.visao;
 import com.mycompany.escola8.entits.Professor8;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author aluno
@@ -264,16 +266,66 @@ public class ProfessorF8 extends javax.swing.JFrame {
 
     private void btSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSaveActionPerformed
         Professor8 a = new Professor8();
-        a.setNome(txtName.getText());
-        a.setSexo(txtSexo.getText().charAt(0));
-        int aux = Integer.parseInt(txtIdade.getText());
-        a.setIdade(aux);
-        int aux1 = Integer.parseInt(txtCpf.getText());
-        a.setCpf(aux1);
-
-        Result.setText(a.toString()); //mostra o resultado
-        this.resetCamps(false);
+        String nome = txtName.getText();
+        if (nome.isEmpty()) {
+          JOptionPane.showMessageDialog(null, "Campo 'Nome' não pode estar vazio.");
+          return; // Retorna sem prosseguir, aguardando que o usuário corrija o campo
+        }
+        a.setNome(nome);
+        // Validação do campo "sexo"
+        String sexo = txtSexo.getText();
+        if (sexo.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Campo 'Sexo' não pode estar vazio.");
+            return;
+        }
+        char sexoChar = sexo.charAt(0); // Obtém o primeiro caractere do campo
+        a.setSexo(sexoChar);
+        // Validação do campo "idade"
+        String idadeStr = txtIdade.getText();
+        if (idadeStr.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Campo 'Idade' não pode estar vazio.");
+            return;
+        }
+        try {
+        int idade = Integer.parseInt(idadeStr);
+        if (idade < 0) {
+              JOptionPane.showMessageDialog(null, "Campo 'Idade' deve ser um valor positivo.");
+            return;
+        }
+        if (idade > 120) {
+              JOptionPane.showMessageDialog(null, "Campo 'Idade' deve ser de alguem vivo");
+        return;
+        }
+        a.setIdade(idade);
+        } catch (NumberFormatException e) {
+              JOptionPane.showMessageDialog(null, "Campo 'Idade' deve ser um número inteiro válido.");
+              return;
+        }
+        String cpfStr = txtCpf.getText();
+        if (cpfStr.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Campo 'Cpf' não pode estar vazio.");
+            return;
+        }
+        try {
+             a.setCpf(cpfStr);
+        } catch (IllegalArgumentException e) {
+             JOptionPane.showMessageDialog(null, "Campo 'CPF' deve conter apenas números.");
+             return;
+        }
+        if (cpfStr.length() != 11) {
+            JOptionPane.showMessageDialog(null, "Cpf Invalido.");
+            return;
+        }
         
+        /**try {
+            int cpf = Integer.parseInt(cpfStr);
+            a.setCpf(cpf);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Campo 'Cpf' deve ser um número inteiro válido.");
+            return;
+        }*/
+        Result.setText(a.toString()); //mostra o resultado
+        this.resetCamps(false); 
     }//GEN-LAST:event_btSaveActionPerformed
 
     private void txtNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNameKeyReleased

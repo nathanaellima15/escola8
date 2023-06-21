@@ -12,9 +12,9 @@ public class Professor8 {
   private String nome;
   private char sexo;
   private int idade;
-  private int cpf;
+  private String cpf;
 
-    public Professor8(String nome, char sexo, int idade, int cpf) {
+    public Professor8(String nome, char sexo, int idade, String cpf) {
         this.nome = nome;
         this.sexo = sexo;
         this.idade = idade;
@@ -24,7 +24,7 @@ public class Professor8 {
       this.nome = "";
       this.sexo = ' ';
       this.idade = 0;
-      this.cpf = 0;
+      this.cpf = "";
     }  
     public String toString(){
         return("\nNome: "+ this.nome + "\nSexo:" + this.sexo + "\nIdade: " + this.idade +  "\nCPF: "+ this.cpf +"\n__________________________\n");
@@ -48,10 +48,10 @@ public class Professor8 {
     public void setIdade(int idade) {
         this.idade = idade;
     }
-    public int getCpf() {
+    public String getCpf() {
         return cpf;
     }
-    public void setCpf(int cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
   
