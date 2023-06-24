@@ -4,7 +4,7 @@
  */
 package com.mycompany.escola8.entits;
 
-import java.util.List;
+
 
 /**
  *
@@ -19,14 +19,13 @@ public class Disciplina8 {
     /**
      *
      */
-    public List<Aluno8> lstAlunos;  
+     
 
-    public Disciplina8(String nome, int semestre, String horario, Professor8 professor, List<Aluno8> lstAlunos) {
+    public Disciplina8(String nome, int semestre, String horario, Professor8 professor) {
         this.nome = nome;
         this.semestre = semestre;
         this.horario = horario;
         this.professor = professor;
-        this.lstAlunos = lstAlunos;
     }
 
     public String getNome() {
@@ -53,11 +52,4 @@ public class Disciplina8 {
     public void setProfessor(Professor8 professor) {
         this.professor = professor;
     }
-    public List<Aluno8> getLstAlunos() {
-        return lstAlunos;
-    }
-    public void setLstAlunos(List<Aluno8> lstAlunos) {
-        this.lstAlunos = lstAlunos;
-    }
-  
 }
