@@ -39,6 +39,7 @@ public class AlunoF8 extends javax.swing.JFrame {
     private int indiceDeEdicao;
     public AlunoF8() {
         initComponents();
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         lista = new ArrayList<>();
         indiceDeEdicao = -1;
         this.resetCamps(false);
